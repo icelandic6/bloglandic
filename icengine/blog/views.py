@@ -1,18 +1,34 @@
 from django.views.generic import View
+from django.shortcuts import render, redirect
 
 from .models import Post, Tag
+from .utils import ObjectDetailsMixin
+from .forms import TagForm
 
 
-class PostDetails(View):
-    def get(self, request, slug):
-        post = get_object_or_404(Post, slug__iexact=slug)
-        return render(request, 'blog/post_details.html', context={'post': post})
+class PostDetails(ObjectDetailsMixin, View):
+    model = Post
+    template = 'blog/post_details.html'
 
 
-class TagDetails(View):
-    def get(self, request, slug):
-        tag = get_object_or_404(Tag, slug__iexact=slug)
-        return render(request, 'blog/tag_details.html', context={'tag': tag})
+class TagDetails(ObjectDetailsMixin, View):
+    model = Tag
+    template = 'blog/tag_details.html'
+
+
+class TagCreate(View):
+    def get(self, request):
+        form = TagForm()
+        return render(request, 'blog/tag_create.html', context={'form': form})
+
+    def post(self, request):
+        bound_form = TagForm(request.POST)
+
+        if bound_form.is_valid():
+            new_tag = bound_form.save()
+            return redirect(new_tag)
+
+        return render(request, 'blog/tag_create.html', context={'form': bound_form})
 
 
 def posts_list(request):
