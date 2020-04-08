@@ -12,4 +12,7 @@
     <p>
         {{ post.body }}
     </p>
+
+    <a href="{{ post.get_delete_url }}" class="btn btn-light mb-5">Delete Post</a>
+
 {% endblock %}

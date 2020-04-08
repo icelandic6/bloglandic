@@ -10,4 +10,7 @@
     {% for post in tag.posts.all %}
         {% include 'blog/includes/post_card_template.html' %}
     {% endfor %}
+
+    <a href="{{ tag.get_delete_url }}" class="btn btn-light mb-5">Delete Tag</a>
+
 {% endblock %}
