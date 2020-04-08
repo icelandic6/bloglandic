@@ -2,7 +2,7 @@ from django.views.generic import View
 from django.shortcuts import render, redirect
 
 from .models import Post, Tag
-from .utils import ObjectDetailsMixin, ObjectCreateMixin
+from .utils import *
 from .forms import PostForm, TagForm
 
 
@@ -17,13 +17,27 @@ class TagDetails(ObjectDetailsMixin, View):
 
 
 class PostCreate(ObjectCreateMixin, View):
-    form_model = PostForm
+    model_form = PostForm
     template = 'blog/post_create_form.html'
 
 
+class PostUpdate(ObjectUpdateMixin, View):
+    model = Post
+    model_form = PostForm
+    template = 'blog/post_update_form.html'
+
+
 class TagCreate(ObjectCreateMixin, View):
-    form_model = TagForm
-    template = 'blog/tag_create.html'
+    model_form = TagForm
+    template = 'blog/tag_create_form.html'
+
+
+class TagUpdate(ObjectUpdateMixin, View):
+    model = Tag
+    model_form = TagForm
+    template = 'blog/tag_update_form.html'
+
+
 
 
 def posts_list(request):
