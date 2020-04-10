@@ -1,6 +1,6 @@
 from django.db import models
 from django.shortcuts import reverse
-from pytils.translit import slugify
+from django.utils.text import slugify
 from time import time
 
 
