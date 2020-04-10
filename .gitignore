@@ -4,5 +4,4 @@ __pycache__
 .idea/
 icenv/
 db.sqlite3
-/static/
-.DS_Story
+.DS_Store
