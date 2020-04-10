@@ -48,5 +48,13 @@
         </div>
     </div>
 
+    {% if request.user.is_authenticated and request.user.is_staff %}
+        <div class="admin-panel mb-3 ml-3 align-items-center">
+            <a class="btn btn-outline-info"  href="/admin/">Admin</a>
+            {% block admin-panel %}
+            {% endblock %}
+        </div>
+    {% endif %}
+
 </body>
 </html>
