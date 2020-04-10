@@ -58,8 +58,13 @@ class TagDetails(ObjectDetailsMixin, View):
 
 
 def posts_list(request):
-    posts = Post.objects.all()
-    return render(request, 'blog/index.html', context={'posts': posts})
+    search_query = request.GET.get('search_pattern', '')
+
+    if search_query:
+        posts = Post.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query))
+    else:
+        posts = Post.objects.all()
+
     paginator = Paginator(posts, 6)
 
     page_number = request.GET.get('page', 1)
