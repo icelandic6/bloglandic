@@ -5,8 +5,12 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="mb-5">Posts:</h1>
-    {% for post in page_object.object_list %}
-        {% include 'blog/includes/post_card_template.html' %}
-    {% endfor %}
+    {% if page_object.object_list %}
+        <h1 class="mb-5">Posts:</h1>
+        {% for post in page_object.object_list %}
+            {% include 'blog/includes/post_card_template.html' %}
+        {% endfor %}
+    {% else %}
+        <h1 class="mb-5">There are no posts yet</h1>
+    {% endif %}
 {% endblock %}
